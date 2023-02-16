@@ -28,5 +28,11 @@ export class PokemonService {
     });
   }
 
-  findPokemonById() {}
+  findPokemonsById(): Promise<Pokemon[]> {
+    return this.prismaService.pokemon.findMany();
+  }
+
+  getAllPokemonPowers(pokemonId: string) {
+    return this.prismaService.pokemonPower.findMany();
+  }
 }

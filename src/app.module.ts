@@ -14,6 +14,7 @@ import { ConfigModule } from '@nestjs/config';
 import { validate } from './core/env.validation';
 import { PokemonModule } from './pokemon/pokemon.module';
 import { PrimaModule } from './prisma/prisma.module';
+import { PowerModule } from './power/power.module';
 
 @Module({
   imports: [
@@ -28,6 +29,7 @@ import { PrimaModule } from './prisma/prisma.module';
     BookmarkModule,
     PokemonModule,
     PrimaModule,
+    PowerModule,
   ],
   controllers: [],
   providers: [JwtService],
