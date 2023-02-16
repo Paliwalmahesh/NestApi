@@ -10,7 +10,7 @@ import {
 } from '@nestjs/common';
 import { Bookmark } from './bookmark';
 import { randomUUID } from 'crypto';
-import { bookmarkDTO } from './bookmarkDTO';
+import { bookmarkDTO } from './dto/bookmarkDTO';
 import { IRequest } from 'src/type';
 import { NextFunction, Response } from 'express';
 

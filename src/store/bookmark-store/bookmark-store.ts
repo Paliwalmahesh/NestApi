@@ -1,6 +1,6 @@
 import { Global, Injectable } from '@nestjs/common';
 
-export type Bookmarkentity = {
+export type BookmarkEntity = {
   id: string;
   url: string;
   description: string;
@@ -10,20 +10,20 @@ export type Bookmarkentity = {
 @Global()
 @Injectable()
 export class BookmarkStore {
-  bookmarks: Bookmarkentity[] = [];
+  bookmarks: BookmarkEntity[] = [];
 
-  get(id: string): Bookmarkentity[] {
-    return this.bookmarks.filter((bookmarkentity: Bookmarkentity) => {
+  get(id: string): BookmarkEntity[] {
+    return this.bookmarks.filter((bookmarkentity: BookmarkEntity) => {
       if (bookmarkentity.userId == id) {
         return bookmarkentity;
       }
     });
   }
-  getall(): Bookmarkentity[] {
+  getall(): BookmarkEntity[] {
     return this.bookmarks;
   }
 
-  save(bookmark: Bookmarkentity) {
+  save(bookmark: BookmarkEntity) {
     this.bookmarks.push(bookmark);
     return {
       id: bookmark.id,
@@ -33,11 +33,11 @@ export class BookmarkStore {
       url: bookmark.url,
     };
   }
-  getById(id: string): Bookmarkentity {
+  getById(id: string): BookmarkEntity {
     return this.bookmarks.find((bookmark) => bookmark.id == id);
   }
 
-  deletebyId(id: string): Bookmarkentity[] {
+  deletebyId(id: string): BookmarkEntity[] {
     return this.bookmarks.filter((bookmark) => bookmark.id !== id);
   }
 }

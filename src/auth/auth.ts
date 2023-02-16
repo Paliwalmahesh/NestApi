@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { authDto } from './authDTO';
+import { authDto } from './dto/authDTO';
 import { User, UserStrore } from 'src/store/user-strore/user-strore';
 import { randomUUID, verify } from 'crypto';
 import { JwtService } from '@nestjs/jwt/dist';
@@ -31,9 +31,13 @@ export class Auth {
     if (!(await compare(authBody.password, user.password))) {
       return 'Invalid password';
     }
-    
-    const token = {id : user.id, email: authBody.email, password: authBody.password };
-    const accesskey=this.jwtService.sign(token)
+
+    const token = {
+      id: user.id,
+      email: authBody.email,
+      password: authBody.password,
+    };
+    const accesskey = this.jwtService.sign(token);
     console.log(this.jwtService.decode(accesskey));
     return this.jwtService.sign(token);
   }

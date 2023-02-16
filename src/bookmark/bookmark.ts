@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import {
-  Bookmarkentity,
+  BookmarkEntity,
   BookmarkStore,
 } from 'src/store/bookmark-store/bookmark-store';
 import { randomUUID } from 'crypto';
-import { bookmarkDTO } from './bookmarkDTO';
+import { bookmarkDTO } from './dto/bookmarkDTO';
 import { userModule } from './../user/user.module';
 import { Auth } from './../auth/auth';
 import { user } from './../user/user.controller';
@@ -25,7 +25,7 @@ export class Bookmark {
 
   save(Bookmark: bookmarkDTO) {
     const id = randomUUID();
-    const bookmark: Bookmarkentity = {
+    const bookmark: BookmarkEntity = {
       id: id,
       url: Bookmark.url,
       description: Bookmark.description,

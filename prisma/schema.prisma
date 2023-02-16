@@ -1,0 +1,64 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String     @id @default(uuid())
+  email     String     @unique
+  password  String
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+  Bookmark  Bookmark[]
+
+  @@map("user")
+}
+
+model Bookmark {
+  id          String  @id @default(uuid())
+  url         String
+  userId      String
+  user        User    @relation(fields: [userId], references: [id])
+  name        String?
+  description String?
+
+  @@map("bookmark")
+}
+
+model Pokemon {
+  id           String         @id @default(uuid())
+  name         String
+  imageUrl     String
+  pokemonPower PokemonPower[]
+  Power        Power[]
+
+  @@map("pokemon")
+}
+
+model Power {
+  id           String         @id @default(uuid())
+  name         String
+  Pokemonpower PokemonPower[]
+
+  Pokemon   Pokemon? @relation(fields: [pokemonId], references: [id])
+  pokemonId String?
+
+  @@map("power")
+}
+
+model PokemonPower {
+  id        Int     @id @default(autoincrement())
+  pokemonId String
+  Power     Power?  @relation(fields: [powerId], references: [id])
+  powerId   String?
+  pokemon   Pokemon @relation(fields: [pokemonId], references: [id])
+
+  @@map("pokemon_power")
+}
