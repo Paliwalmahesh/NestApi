@@ -61,3 +61,8 @@ ALTER TABLE "pokemon_power" ADD CONSTRAINT "pokemon_power_powerId_fkey" FOREIGN 
 
 -- AddForeignKey
 ALTER TABLE "pokemon_power" ADD CONSTRAINT "pokemon_power_pokemonId_fkey" FOREIGN KEY ("pokemonId") REFERENCES "pokemon"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+-- ADD powers
+INSERT INTO "power" VALUE("1" ,"Fire");
+INSERT INTO "power" VALUE("2" ,"Water");
+INSERT INTO "power" VALUE("3" ,"Thunder");
+

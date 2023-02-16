@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { CreatePokemonDTO } from './dto/pokemonDTO';
-import { Pokemon } from '@prisma/client';
+import { Pokemon, PokemonPower } from '@prisma/client';
 
 @Injectable()
 export class PokemonService {
@@ -31,8 +31,19 @@ export class PokemonService {
   findPokemonsById(): Promise<Pokemon[]> {
     return this.prismaService.pokemon.findMany();
   }
-
-  getAllPokemonPowers(pokemonId: string) {
-    return this.prismaService.pokemonPower.findMany();
+  deleteAllPokemonPowers(pokemonid: string, powerid: string): any {
+    return this.prismaService.pokemonPower.deleteMany({
+      where: {
+        pokemonId: pokemonid,
+        powerId: powerid,
+      },
+    });
+  }
+  getAllPokemonPowers(pokemonid: string) {
+    return this.prismaService.pokemonPower.findMany({
+      where: {
+        pokemonId: pokemonid,
+      },
+    });
   }
 }

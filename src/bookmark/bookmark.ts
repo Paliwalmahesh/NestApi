@@ -1,46 +1,55 @@
+// import { Bookmark } from '@prisma/client';
+
 import { Injectable } from '@nestjs/common';
 import {
   BookmarkEntity,
   BookmarkStore,
 } from 'src/store/bookmark-store/bookmark-store';
-import { randomUUID } from 'crypto';
 import { bookmarkDTO } from './dto/bookmarkDTO';
-import { userModule } from './../user/user.module';
-import { Auth } from './../auth/auth';
-import { user } from './../user/user.controller';
 import { UserStrore } from 'src/store/user-strore/user-strore';
+import { PrismaService } from 'src/prisma/prisma.service';
+import { Bookmark } from '@prisma/client';
 
 @Injectable()
-export class Bookmark {
+export class BookmarkService {
   constructor(
     private readonly bookStore: BookmarkStore,
     private readonly UserStrore: UserStrore,
+    private readonly prismaService: PrismaService,
   ) {}
-  get(id: string) {
-    return this.bookStore.get(id);
-  }
-  getall() {
-    return this.bookStore.getall();
-  }
-
-  save(Bookmark: bookmarkDTO) {
-    const id = randomUUID();
-    const bookmark: BookmarkEntity = {
-      id: id,
-      url: Bookmark.url,
-      description: Bookmark.description,
-      name: Bookmark.name,
-      userId: Bookmark.userId,
-    };
-    return this.bookStore.save(bookmark);
+  async get(id: string): Promise<Bookmark[]> {
+    return await this.prismaService.bookmark.findMany({
+      where: {
+        userId: id,
+      },
+    });
   }
 
-  getbyId(id: string) {
-    return this.bookStore.getById(id);
+  async save(Bookmark: bookmarkDTO) {
+    return await this.prismaService.bookmark.create({
+      data: {
+        url: Bookmark.url,
+        userId: Bookmark.userId,
+        name: Bookmark.name,
+        description: Bookmark.description,
+      },
+    });
   }
 
-  deleteById(id: string) {
-    return this.bookStore.deletebyId(id);
+  async getbyId(id: string) {
+    return await this.prismaService.bookmark.findFirst({
+      where: {
+        id: id,
+      },
+    });
+  }
+
+  async deleteById(id: string) {
+    return await this.prismaService.bookmark.delete({
+      where: {
+        id: id,
+      },
+    });
   }
 
   update(id: string, Bookmark: bookmarkDTO) {}

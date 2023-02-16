@@ -7,7 +7,9 @@ import { JwtService } from '@nestjs/jwt/dist';
 export class JwtRequestMiddleware implements NestMiddleware {
   constructor(private readonly jwtService: JwtService) {}
   use(req: IRequest, res: Response, next: NextFunction) {
-    const header = req.headers['Authorization'];
+    console.log(req.headers);
+    const header = req.headers['authorization'];
+    console.log(header);
     if (!header) {
       res.status(402).send('Access denied');
     }

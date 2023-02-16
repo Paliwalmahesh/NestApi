@@ -8,7 +8,7 @@ import {
   Put,
   Req,
 } from '@nestjs/common';
-import { Bookmark } from './bookmark';
+import { BookmarkService } from './bookmark';
 import { randomUUID } from 'crypto';
 import { bookmarkDTO } from './dto/bookmarkDTO';
 import { IRequest } from 'src/type';
@@ -16,7 +16,7 @@ import { NextFunction, Response } from 'express';
 
 @Controller('/bookmark')
 export class BookmarkController {
-  constructor(private readonly appService: Bookmark) {}
+  constructor(private readonly appService: BookmarkService) {}
 
   @Get('')
   getall(@Req() request: IRequest) {
@@ -36,6 +36,8 @@ export class BookmarkController {
 
   @Get(':id')
   getbyId(@Param('id') id: string) {
+    // console.log(id + '----' + request.userData.id);
+
     return this.appService.getbyId(id);
   }
 

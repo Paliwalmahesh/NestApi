@@ -8,4 +8,12 @@ export class PowerService {
   getAllPowers() {
     return this.prismaService.power.findMany();
   }
+
+  async getPokemonPowers(pokemonid: string) {
+    return await this.prismaService.power.findMany({
+      where: {
+        pokemonId: pokemonid,
+      },
+    });
+  }
 }
