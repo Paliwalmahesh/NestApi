@@ -2,7 +2,7 @@ import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
 import { PokemonService } from './pokemon.service';
 import { CreatePokemonDTO } from './dto/pokemonDTO';
 import { Pokemon, PokemonPower, Power } from '@prisma/client';
-import { PowerService } from 'src/power/power.service';
+import { PowerService } from '../power/power.service';
 
 @Controller('pokemon')
 export class PokemonController {

@@ -1,11 +1,11 @@
 import { user } from './../user/user.controller';
 import { Injectable } from '@nestjs/common';
 import { authDto } from './dto/authDTO';
-import { User, UserStrore } from 'src/store/user-strore/user-strore';
+import { User, UserStrore } from '../store/user-strore/user-strore';
 import { randomUUID, verify } from 'crypto';
 import { JwtService } from '@nestjs/jwt/dist';
 import { compare, hash } from 'bcrypt';
-import { PrismaService } from 'src/prisma/prisma.service';
+import { PrismaService } from '../prisma/prisma.service';
 
 @Injectable()
 export class Auth {
@@ -54,6 +54,7 @@ export class Auth {
     };
     const accesskey = this.jwtService.sign(token);
     console.log(this.jwtService.decode(accesskey));
-    return this.jwtService.sign(token);
+
+    return { accesskey };
   }
 }

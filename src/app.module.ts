@@ -7,7 +7,6 @@ import {
 import { userModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
 import { StoreModule } from './store/store.module';
-import { BookmarkModule } from './bookmark/bookmark.module';
 import { JwtRequestMiddleware } from './jwtLogger.middleware';
 import { JwtService } from '@nestjs/jwt';
 import { ConfigModule } from '@nestjs/config';
@@ -15,6 +14,7 @@ import { validate } from './core/env.validation';
 import { PokemonModule } from './pokemon/pokemon.module';
 import { PrimaModule } from './prisma/prisma.module';
 import { PowerModule } from './power/power.module';
+import { BookmarkModule } from './bookmark/bookmark.module';
 
 @Module({
   imports: [
@@ -37,8 +37,6 @@ import { PowerModule } from './power/power.module';
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
-    consumer
-      .apply(JwtRequestMiddleware)
-      .forRoutes({ path: '/Bookmark', method: RequestMethod.ALL });
+    consumer.apply(JwtRequestMiddleware);
   }
 }

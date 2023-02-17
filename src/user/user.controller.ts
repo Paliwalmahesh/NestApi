@@ -1,8 +1,8 @@
 import { PrismaService } from './../prisma/prisma.service';
 import { PrismaClient } from '@prisma/client';
 import { Controller, Get, UseGuards } from '@nestjs/common';
-import { JwtAuthGuard } from 'src/auth/jwt-auth-guard/jwt.auth.guard';
-import { JwtStrategy } from 'src/auth/jwt-auth-strategy/jwt.auth.strategy';
+import { JwtAuthGuard } from '../auth/jwt-auth-guard/jwt.auth.guard';
+import { JwtStrategy } from '../auth/jwt-auth-strategy/jwt.auth.strategy';
 import { UserService } from './user-service/user-service';
 
 @Controller('/user')

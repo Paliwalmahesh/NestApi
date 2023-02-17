@@ -1,53 +1,27 @@
-import {
-  Body,
-  Controller,
-  Delete,
-  Get,
-  Param,
-  Post,
-  Put,
-  Req,
-} from '@nestjs/common';
-import { BookmarkService } from './bookmark';
-import { randomUUID } from 'crypto';
-import { bookmarkDTO } from './dto/bookmarkDTO';
-import { IRequest } from 'src/type';
-import { NextFunction, Response } from 'express';
+import { BookmarkDTO } from './DTO/bookmarkDTO';
+import { BookmarkService } from './bookmark.service.';
+import { Controller, Get, Param, Post, HttpCode } from '@nestjs/common';
+import { NotImplementedException } from '@nestjs/common/exceptions';
+import { Bookmark } from '@prisma/client';
+import { HttpStatus } from '@nestjs/common/enums';
 
-@Controller('/bookmark')
+@Controller('bookmark')
 export class BookmarkController {
-  constructor(private readonly appService: BookmarkService) {}
-
-  @Get('')
-  getall(@Req() request: IRequest) {
-    return this.appService.get(request.userData.id);
-  }
-
-  @Post('')
-  saveBookmark(@Req() request: IRequest) {
-    const bookmark = {
-      url: request.body.url,
-      description: request.body.description,
-      name: request.body.name,
-      userId: request.userData.id,
-    };
-    return this.appService.save(bookmark);
-  }
-
+  constructor(private readonly bookmarkService: BookmarkService) {}
   @Get(':id')
-  getbyId(@Param('id') id: string) {
-    console.log('----' + id);
-
-    return this.appService.getbyId(id);
+  @HttpCode(HttpStatus.OK)
+  async getById(@Param('id') id: string): Promise<Bookmark> {
+    return await this.bookmarkService.getById(id);
   }
+  @Get()
+  @HttpCode(HttpStatus.OK)
+  async getAll(): Promise<Bookmark[]> {
+    console.log('called');
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.appService.deleteById(id);
+    return await this.bookmarkService.getAll();
   }
-
-  @Put(':id')
-  update(@Param('id') id: string, @Body() bookmark: bookmarkDTO) {
-    return this.appService.update(id, bookmark);
+  @Post()
+  createBookmark(bookmark: BookmarkDTO) {
+    this.bookmarkService.create(bookmark);
   }
 }

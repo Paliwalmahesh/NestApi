@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { UserStrore } from 'src/store/user-strore/user-strore';
+import { UserStrore } from '../../store/user-strore/user-strore';
 
 @Injectable()
 export class UserService {
