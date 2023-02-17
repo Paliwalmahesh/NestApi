@@ -36,7 +36,7 @@ export class BookmarkController {
 
   @Get(':id')
   getbyId(@Param('id') id: string) {
-    // console.log(id + '----' + request.userData.id);
+    console.log('----' + id);
 
     return this.appService.getbyId(id);
   }
